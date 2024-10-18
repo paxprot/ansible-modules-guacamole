@@ -292,17 +292,20 @@ def main():
         module.fail_json(msg=str(e))
 
     # check if the connections group already exists
-    # If the connections group exists we get the numeric id
+    # If the connections group exists we get the numeric id and name (later displayed in msg)
     guacamole_connections_group_exists = False
+    guacamole_connections_group_name = module.params.get('group_name')
     for group_id, group_info in guacamole_connections_groups_before.items():
         if module.params.get('substring_match'):
             if module.params.get('group_name') in group_info['name']:
                 group_numeric_id = group_info['identifier']
+                guacamole_connections_group_name = group_info['name']
                 guacamole_connections_group_exists = True
                 break
         else:
             if group_info['name'] == module.params.get('group_name'):
                 group_numeric_id = group_info['identifier']
+                guacamole_connections_group_name = group_info['name']
                 guacamole_connections_group_exists = True
                 break
 
@@ -365,6 +368,8 @@ def main():
                 except GuacamoleError as e:
                     module.fail_json(msg=str(e))
 
+                result['msg'] = "Connections group '%s' deleted" % guacamole_connections_group_name
+
             # if we are here it's because the group exists and force_deletion=false
             else:
 
@@ -394,6 +399,8 @@ def main():
                         )
                     except GuacamoleError as e:
                         module.fail_json(msg=str(e))
+
+                    result['msg'] = "Connections group '%s' deleted" % guacamole_connections_group_name
 
                 # if the group has child connections and force_deletion=false fail and exit
                 else:
