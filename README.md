@@ -14,7 +14,7 @@ If you are interested in contributing to this project please mention it in your 
 
 Ansible modules to administer apache guacamole connections and users using the API
 
-## Installation
+## Official installation
 
 ```
 ansible-galaxy collection install scicore.guacamole
