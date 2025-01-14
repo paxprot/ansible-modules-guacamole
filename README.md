@@ -18,7 +18,14 @@ Ansible modules to administer apache guacamole connections and users using the A
 
 ```
 ansible-galaxy collection install scicore.guacamole
+```
 
+## To install my forked version
+
+```
+git clone https://github.com/paxprot/ansible-modules-guacamole.git
+cd ansible-modules-guacamole
+ansible-galaxy collection install . --force
 ```
 
 Now you can use the modules `guacamole_connection` and `guacamole_user`. Adapt the examples below to your needs.
